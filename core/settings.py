@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-9db7k$lun(v-$3j%ol$mivek-&l_vswm%1ho*z!$xac6oko^ou
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['roverui.onrender.com','127.0.0.1','localhost']
 
 
 # Application definition
