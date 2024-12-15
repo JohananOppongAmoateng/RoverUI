@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+ {% load tailwind_filters %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoverUI - Dataset Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-relaxed">
+
+    <!-- Navbar -->
+    <header class="bg-blue-500 py-4">
+        <div class="max-w-7xl mx-auto px-4">
+            <h1 class="text-white text-3xl font-semibold">RoverUI</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto mt-8 px-4">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Upload JSON File</h2>
+
+            <!-- Form Handling -->
+            <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                {% csrf_token %}
+
+{{form | crispy }}
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">Generate Dataset</button>
+                </div>
+            </form>
+
+            <!-- Error Message -->
+            {% if error %}
+            <div class="mt-4 p-4 bg-red-100 text-red-700 border border-red-300 rounded-md">
+                <strong>Error:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Result Display -->
+            {% if result %}
+            <div class="mt-4 p-4 bg-green-100 text-green-700 border border-green-300 rounded-md">
+                <h3 class="font-semibold">Dataset Generated Successfully</h3>
+                <p><strong>File:</strong> <a href="{{ result.file_url }}" class="text-blue-600 underline">Download Dataset</a></p>
+                <p><strong>Topics:</strong> {{ result.topics|length }}</p>
+                <p><strong>Total Sites:</strong> {{ result.total_sites }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-500 text-white py-4 mt-8">
+        <div class="text-center">
+            <p>&copy; 2024 RoverUI. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
